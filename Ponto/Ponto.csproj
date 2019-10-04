@@ -54,6 +54,7 @@
     <Compile Include="Classes\clsPonto.cs" />
     <Compile Include="Classes\clsUsuario.cs" />
     <Compile Include="Classes\clsVariaveis.cs" />
+    <Compile Include="Classes\Exceptions\DomainException.cs" />
     <Compile Include="Forms\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,9 +98,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\Visor01.jpg" />
   </ItemGroup>

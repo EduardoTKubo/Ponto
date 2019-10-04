@@ -42,11 +42,18 @@
             this.btnGravar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dtgRel = new System.Windows.Forms.DataGridView();
+            this.cboFunc = new System.Windows.Forms.ComboBox();
+            this.cboEmpresa = new System.Windows.Forms.ComboBox();
+            this.dtPicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dtPicker1 = new System.Windows.Forms.DateTimePicker();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgRel)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -169,13 +176,64 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.dtgRel);
+            this.tabPage2.Controls.Add(this.cboFunc);
+            this.tabPage2.Controls.Add(this.cboEmpresa);
+            this.tabPage2.Controls.Add(this.dtPicker2);
+            this.tabPage2.Controls.Add(this.dtPicker1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(638, 171);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Relatório";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dtgRel
+            // 
+            this.dtgRel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgRel.Location = new System.Drawing.Point(35, 33);
+            this.dtgRel.Name = "dtgRel";
+            this.dtgRel.Size = new System.Drawing.Size(554, 132);
+            this.dtgRel.TabIndex = 5;
+            // 
+            // cboFunc
+            // 
+            this.cboFunc.FormattingEnabled = true;
+            this.cboFunc.Location = new System.Drawing.Point(407, 5);
+            this.cboFunc.Name = "cboFunc";
+            this.cboFunc.Size = new System.Drawing.Size(212, 21);
+            this.cboFunc.TabIndex = 3;
+            this.cboFunc.SelectedIndexChanged += new System.EventHandler(this.cboFunc_SelectedIndexChanged);
+            // 
+            // cboEmpresa
+            // 
+            this.cboEmpresa.FormattingEnabled = true;
+            this.cboEmpresa.Location = new System.Drawing.Point(240, 6);
+            this.cboEmpresa.Name = "cboEmpresa";
+            this.cboEmpresa.Size = new System.Drawing.Size(146, 21);
+            this.cboEmpresa.TabIndex = 2;
+            this.cboEmpresa.SelectedIndexChanged += new System.EventHandler(this.cboEmpresa_SelectedIndexChanged);
+            // 
+            // dtPicker2
+            // 
+            this.dtPicker2.CalendarTrailingForeColor = System.Drawing.Color.Gray;
+            this.dtPicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtPicker2.Location = new System.Drawing.Point(136, 6);
+            this.dtPicker2.Name = "dtPicker2";
+            this.dtPicker2.Size = new System.Drawing.Size(79, 20);
+            this.dtPicker2.TabIndex = 1;
+            this.dtPicker2.ValueChanged += new System.EventHandler(this.dtPicker2_ValueChanged);
+            // 
+            // dtPicker1
+            // 
+            this.dtPicker1.CalendarTrailingForeColor = System.Drawing.Color.Gray;
+            this.dtPicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtPicker1.Location = new System.Drawing.Point(35, 6);
+            this.dtPicker1.Name = "dtPicker1";
+            this.dtPicker1.Size = new System.Drawing.Size(79, 20);
+            this.dtPicker1.TabIndex = 0;
+            this.dtPicker1.ValueChanged += new System.EventHandler(this.dtPicker1_ValueChanged);
             // 
             // tabPage3
             // 
@@ -205,6 +263,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgRel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,5 +284,10 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnGravar;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.DataGridView dtgRel;
+        private System.Windows.Forms.ComboBox cboFunc;
+        private System.Windows.Forms.ComboBox cboEmpresa;
+        private System.Windows.Forms.DateTimePicker dtPicker2;
+        private System.Windows.Forms.DateTimePicker dtPicker1;
     }
 }

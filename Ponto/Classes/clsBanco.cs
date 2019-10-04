@@ -23,19 +23,14 @@ namespace Ponto.Classes
                 {
                     ConnectionString = Classes.clsVariaveis.Conexao
                 };
-                sqlCon.Open();
+                await sqlCon.OpenAsync();
 
                 sqlCom = new SqlCommand
                 {
                     Connection = sqlCon,
                     CommandType = CommandType.Text,
-                    CommandText = select,
-                    CommandTimeout = 540
+                    CommandText = select
                 };
-
-                //sqlAdapter = new SqlDataAdapter(sqlCom);
-                //Dt = new DataTable();
-                //sqlAdapter.Fill(Dt);
 
                 Dt = new DataTable();
                 SqlDataReader reader = await sqlCom.ExecuteReaderAsync();
@@ -62,7 +57,7 @@ namespace Ponto.Classes
                 {
                     ConnectionString = Classes.clsVariaveis.Conexao
                 };
-                sqlCon.Open();
+                await sqlCon.OpenAsync();
 
                 sqlCom = new SqlCommand
                 {
@@ -94,7 +89,7 @@ namespace Ponto.Classes
                 {
                     ConnectionString = Classes.clsVariaveis.Conexao
                 };
-                sqlCon.Open();
+                await sqlCon.OpenAsync();
 
                 sqlCom = new SqlCommand
                 {
