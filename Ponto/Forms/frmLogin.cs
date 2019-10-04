@@ -17,6 +17,7 @@ namespace Ponto
         public frmCPF()
         {
             InitializeComponent();
+            this.Text = Application.ProductName.ToString();
         }
 
 

@@ -37,6 +37,12 @@ namespace Ponto.Classes
             get { return usuDoc; }
         }
 
+        public static string usuStatus = string.Empty;
+        public static string UsuStatus
+        {
+            get { return usuStatus; }
+        }
+
         private static string gstrSQL = string.Empty;
         public static string GstrSQL
         {

@@ -60,8 +60,9 @@ namespace Ponto.Classes
                 clsVariaveis.usuDoc = _cpf;
                 clsVariaveis.usuNome = dt.Rows[0]["Usuario"].ToString();
                 clsVariaveis.usuEmpresa = dt.Rows[0]["Empresa"].ToString();
+                clsVariaveis.usuStatus = dt.Rows[0]["Status"].ToString();
 
-                return dt.Rows[0]["Status"].ToString();
+                return clsVariaveis.usuStatus;
             }
             else
             {

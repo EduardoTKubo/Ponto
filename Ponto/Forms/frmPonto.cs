@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ponto.Classes;
 
@@ -18,6 +13,8 @@ namespace Ponto.Forms
         {
             InitializeComponent();
 
+            this.Text = Application.ProductName.ToString() + " ".PadLeft(110) + Application.ProductVersion;
+
             timer1.Interval = 1000;
             timer1.Enabled = true;
 
@@ -29,6 +26,9 @@ namespace Ponto.Forms
             toolStripStatusLabel3.Text = DateTime.Now.ToShortDateString();
 
             CarregarLista();
+
+            tabPage1.Select();
+                        
         }
 
         private async void CarregarLista()
@@ -76,6 +76,17 @@ namespace Ponto.Forms
 
                 btnGravar.Enabled = true;
             }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (clsVariaveis.usuStatus)
+            {
+                case "USUARIO":
+                    tabPage1.Show();
+                    break;
+            }
+
         }
     }
 }
