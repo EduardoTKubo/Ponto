@@ -1,0 +1,11 @@
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Ponto.exe.config
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Ponto.exe
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Ponto.pdb
+C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.csprojAssemblyReference.cache
+C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.Properties.Resources.resources
+C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.csproj.GenerateResource.cache
+C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.csproj.CoreCompileInputs.cache
+C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.exe
+C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.pdb
+C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.frmCPF.resources
+C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.Forms.frmPonto.resources
