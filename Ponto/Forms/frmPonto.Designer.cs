@@ -42,6 +42,7 @@
             this.btnGravar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnXls = new System.Windows.Forms.Button();
             this.dtgRel = new System.Windows.Forms.DataGridView();
             this.cboFunc = new System.Windows.Forms.ComboBox();
             this.cboEmpresa = new System.Windows.Forms.ComboBox();
@@ -138,7 +139,7 @@
             this.lblHora.BackColor = System.Drawing.Color.Transparent;
             this.lblHora.Font = new System.Drawing.Font("Verdana", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHora.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblHora.Location = new System.Drawing.Point(107, 39);
+            this.lblHora.Location = new System.Drawing.Point(74, 39);
             this.lblHora.Name = "lblHora";
             this.lblHora.Size = new System.Drawing.Size(206, 45);
             this.lblHora.TabIndex = 7;
@@ -177,6 +178,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.btnXls);
             this.tabPage2.Controls.Add(this.dtgRel);
             this.tabPage2.Controls.Add(this.cboFunc);
             this.tabPage2.Controls.Add(this.cboEmpresa);
@@ -189,10 +191,20 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Relatório";
             // 
+            // btnXls
+            // 
+            this.btnXls.Image = global::Ponto.Properties.Resources.EXCEL;
+            this.btnXls.Location = new System.Drawing.Point(582, 33);
+            this.btnXls.Name = "btnXls";
+            this.btnXls.Size = new System.Drawing.Size(39, 38);
+            this.btnXls.TabIndex = 9;
+            this.btnXls.UseVisualStyleBackColor = true;
+            this.btnXls.Click += new System.EventHandler(this.btnXls_Click);
+            // 
             // dtgRel
             // 
             this.dtgRel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgRel.Location = new System.Drawing.Point(35, 33);
+            this.dtgRel.Location = new System.Drawing.Point(25, 33);
             this.dtgRel.Name = "dtgRel";
             this.dtgRel.Size = new System.Drawing.Size(554, 132);
             this.dtgRel.TabIndex = 5;
@@ -200,16 +212,16 @@
             // cboFunc
             // 
             this.cboFunc.FormattingEnabled = true;
-            this.cboFunc.Location = new System.Drawing.Point(407, 5);
+            this.cboFunc.Location = new System.Drawing.Point(397, 5);
             this.cboFunc.Name = "cboFunc";
-            this.cboFunc.Size = new System.Drawing.Size(212, 21);
+            this.cboFunc.Size = new System.Drawing.Size(224, 21);
             this.cboFunc.TabIndex = 3;
             this.cboFunc.SelectedIndexChanged += new System.EventHandler(this.cboFunc_SelectedIndexChanged);
             // 
             // cboEmpresa
             // 
             this.cboEmpresa.FormattingEnabled = true;
-            this.cboEmpresa.Location = new System.Drawing.Point(240, 6);
+            this.cboEmpresa.Location = new System.Drawing.Point(230, 6);
             this.cboEmpresa.Name = "cboEmpresa";
             this.cboEmpresa.Size = new System.Drawing.Size(146, 21);
             this.cboEmpresa.TabIndex = 2;
@@ -219,7 +231,7 @@
             // 
             this.dtPicker2.CalendarTrailingForeColor = System.Drawing.Color.Gray;
             this.dtPicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtPicker2.Location = new System.Drawing.Point(136, 6);
+            this.dtPicker2.Location = new System.Drawing.Point(126, 6);
             this.dtPicker2.Name = "dtPicker2";
             this.dtPicker2.Size = new System.Drawing.Size(79, 20);
             this.dtPicker2.TabIndex = 1;
@@ -229,7 +241,7 @@
             // 
             this.dtPicker1.CalendarTrailingForeColor = System.Drawing.Color.Gray;
             this.dtPicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtPicker1.Location = new System.Drawing.Point(35, 6);
+            this.dtPicker1.Location = new System.Drawing.Point(25, 6);
             this.dtPicker1.Name = "dtPicker1";
             this.dtPicker1.Size = new System.Drawing.Size(79, 20);
             this.dtPicker1.TabIndex = 0;
@@ -237,13 +249,13 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.Color.LightGray;
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(638, 171);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Cadastro";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // frmPonto
             // 
@@ -289,5 +301,6 @@
         private System.Windows.Forms.ComboBox cboEmpresa;
         private System.Windows.Forms.DateTimePicker dtPicker2;
         private System.Windows.Forms.DateTimePicker dtPicker1;
+        private System.Windows.Forms.Button btnXls;
     }
 }

@@ -9,3 +9,12 @@ C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.exe
 C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.pdb
 C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.frmCPF.resources
 C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.Forms.frmPonto.resources
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Spire.Common.dll
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Spire.License.dll
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Spire.Pdf.dll
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Spire.XLS.dll
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Microsoft.mshtml.dll
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Spire.Common.xml
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Spire.Pdf.xml
+C:\Ekubo\Sistemas C#\Ponto\Ponto\bin\Debug\Spire.XLS.xml
+C:\Ekubo\Sistemas C#\Ponto\Ponto\obj\Debug\Ponto.csproj.CopyComplete

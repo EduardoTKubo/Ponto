@@ -100,7 +100,7 @@ namespace Ponto.Forms
 
             try
             {
-                if(_empresa != "")
+                if (_empresa != "")
                 {
                     clsVariaveis.GstrSQL = "select Usuario from vi_A_Cadastro where empresa = '" + _empresa
                                        + "' and data between '" + _dt1 + "' and '" + _dt2 +
@@ -110,12 +110,12 @@ namespace Ponto.Forms
                     {
                         cboFunc.Items.Add(item[0].ToString());
                     }
-                    if(dt.Rows.Count > 1)
+                    if (dt.Rows.Count > 1)
                     {
                         cboFunc.Items.Add("TODOS");
                     }
-                    
-                }                
+
+                }
             }
             catch (Exception e)
             {
@@ -123,7 +123,7 @@ namespace Ponto.Forms
             }
         }
 
-        private async void PreencheGridHorarios(string _dt1, string _dt2, string _empresa ,string _func)
+        private async void PreencheGridHorarios(string _dt1, string _dt2, string _empresa, string _func)
         {
             switch (_func)
             {
@@ -145,7 +145,7 @@ namespace Ponto.Forms
                     }
 
                     dtgRel.DataSource = dtTot;
-             
+
                     break;
 
                 default:
@@ -156,7 +156,7 @@ namespace Ponto.Forms
                     break;
             }
         }
-        
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             lblHora.Text = DateTime.Now.ToString("HH:mm:ss");
@@ -181,7 +181,6 @@ namespace Ponto.Forms
                 {
                     CarregarLista();
                 }
-
                 btnGravar.Enabled = true;
             }
         }
@@ -213,7 +212,6 @@ namespace Ponto.Forms
                     }
                     break;
             }
-
         }
 
         private void dtPicker1_ValueChanged(object sender, EventArgs e)
@@ -228,12 +226,77 @@ namespace Ponto.Forms
 
         private void cboEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PreencheCboFunc(dtPicker1.Value.ToString("yyyy-MM-dd"), dtPicker2.Value.ToString("yyyy-MM-dd"),cboEmpresa.Text);
+            PreencheCboFunc(dtPicker1.Value.ToString("yyyy-MM-dd"), dtPicker2.Value.ToString("yyyy-MM-dd"), cboEmpresa.Text);
         }
 
         private void cboFunc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PreencheGridHorarios(dtPicker1.Value.ToString("yyyy-MM-dd"), dtPicker2.Value.ToString("yyyy-MM-dd"), cboEmpresa.Text ,cboFunc.Text);
+            PreencheGridHorarios(dtPicker1.Value.ToString("yyyy-MM-dd"), dtPicker2.Value.ToString("yyyy-MM-dd"), cboEmpresa.Text, cboFunc.Text);
         }
+
+        private async void btnXls_Click(object sender, EventArgs e)
+        {
+            if (dtgRel.RowCount != 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Tem certeza ?", "Exportar para o Excel", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    btnXls.Enabled = false;
+                    this.Cursor = Cursors.WaitCursor;
+
+                    bool booResp = await clsPlanilha.ExportarXLSAsync(dtgRel);
+
+                    btnXls.Enabled = true;
+                    this.Cursor = Cursors.Default;
+                }
+            }
+                
+
+            //if (dtgRel.RowCount != 0)
+            //{
+            //    // definindo nome da planilha
+            //    string strCaminho = Application.StartupPath + @"\arquivo\" + DateTime.Now.ToString("yyyyMMdd_HHmm") + "_RelVisitas.xlsx";
+
+            //    DataTable dt = new DataTable();
+
+            //    // create columns
+            //    foreach (DataGridViewColumn col in dtgRel.Columns)
+            //    {
+            //        if (col.ValueType == null)
+            //        {
+            //            dt.Columns.Add(col.Name, typeof(string));
+            //        }
+            //        else
+            //        {
+            //            dt.Columns.Add(col.Name, col.ValueType);
+            //            dt.Columns[col.Name].Caption = col.HeaderText;
+            //        }
+            //    }
+            //    // insert row data
+            //    foreach (DataGridViewRow row in dtgRel.Rows)
+            //    {
+            //        DataRow drNewRow = dt.NewRow();
+            //        foreach (DataColumn col in dt.Columns)
+            //        {
+            //            drNewRow[col.ColumnName] = row.Cells[col.ColumnName].Value;
+            //        }
+            //        dt.Rows.Add(drNewRow);
+            //    }
+
+            //    // cria a planilha
+            //    if (await clsPlanilha.GeraSpireXLSAsync(dt, strCaminho))
+            //    {
+            //        // abre a planilha
+            //        clsPlanilha.OpenXLS(strCaminho);
+            //    }
+            //}
+
+
+        }
+
+
     }
 }
+
+
+
