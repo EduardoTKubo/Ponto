@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ponto.Classes;
-//using Ponto.Classes.Exceptions;
 
 
 namespace Ponto.Forms
@@ -54,11 +53,38 @@ namespace Ponto.Forms
         private void LimpaTabPage2()
         {
             cboEmpresa.Items.Clear();
-            cboEmpresa.Text = string.Empty;
+            cboEmpresa.SelectedIndex = -1;
             cboFunc.Items.Clear();
-            cboFunc.Text = string.Empty;
+            cboFunc.SelectedIndex = -1;
             dtgRel.DataSource = "";
             this.Refresh();
+        }
+
+        private void LimpaTabPage3()
+        {
+            lblId_C.Text = "";
+            cboEmpresa.SelectedIndex = -1;
+            txtCPF_C.Text = string.Empty;
+            txtNome_C.Text = string.Empty;
+            cboStatus_C.SelectedIndex = -1;
+            dtgCad.DataSource = "";
+            btnGravar_C.Text = "";
+            btnExcluir_C.Enabled = false;
+        }
+
+        private async void PreencherTabPage3()
+        {
+            cboEmpresa_C.Items.Clear();
+            clsVariaveis.GstrSQL = "select Descricao as Empresa from A_Tab_Geral where Titulo = 'EMPRESA' and Ativo = 1 order by Descricao";
+            DataTable dt = await Classes.clsBanco.ConsultaAsync(clsVariaveis.GstrSQL);
+            foreach (DataRow item in dt.Rows)
+            {
+                cboEmpresa_C.Items.Add(item[0].ToString());
+            }
+
+            cboStatus_C.Items.Clear();
+            cboStatus_C.Items.Add("ADMINISTRADOR");
+            cboStatus_C.Items.Add("USUARIO");
         }
 
         private async void PreencheCboEmpresa(string _dt1, string _dt2)
@@ -120,6 +146,34 @@ namespace Ponto.Forms
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Preenche Funcionarios", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private async void PreencheGridCad(string _empresa)
+        {
+            dtgCad.DataSource = "";
+            try
+            {
+                clsVariaveis.GstrSQL = "select ID ,Usuario from A_Usuario where Empresa = '" + _empresa + "' and Ativo = 1 order by Usuario";
+                dtgCad.DataSource = await Classes.clsBanco.ConsultaAsync(clsVariaveis.GstrSQL);
+
+                foreach (DataGridViewColumn column in dtgCad.Columns)
+                {
+                    if (column.DataPropertyName == "ID")
+                    {
+                        column.Visible = false;
+                    }
+                    else
+                    {
+                        column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                        // largura automatica da coluna
+                        column.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Preenche Cad Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -207,7 +261,8 @@ namespace Ponto.Forms
                             break;
 
                         case 2:
-
+                            LimpaTabPage3();
+                            PreencherTabPage3(); 
                             break;
                     }
                     break;
@@ -290,11 +345,86 @@ namespace Ponto.Forms
             //        clsPlanilha.OpenXLS(strCaminho);
             //    }
             //}
-
-
         }
 
+        private void txtCPF_C_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Classes.clsFuncoes.IsNumeric(e);
 
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                txtNome_C.Focus();
+            }
+        }
+
+        private async void btnExcluir_C_Click(object sender, EventArgs e)
+        {
+            if(lblId_C.Text != "")
+            {
+                DialogResult dialogResult = MessageBox.Show("Deseja realmente excluir o usuário ?", "Excluir / Usuário", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    bool booDel = await clsUsuario.ExcluirUsuario(lblId_C.Text);
+                    if (booDel)
+                    {
+                        MessageBox.Show("Excluído com sucesso", "Excluir / Usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        string x = cboEmpresa_C.Text;
+                        
+                        LimpaTabPage3();
+                        cboEmpresa_C.Text = x;
+                        PreencheGridCad(x);
+                    }
+                    else
+                    {
+                        MessageBox.Show(clsVariaveis.GstrResp, "Erro ao excluir", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
+
+        private async void txtCPF_C_Leave(object sender, EventArgs e)
+        {
+            if(txtCPF_C.Text != "")
+            {
+                string resp = clsFuncoes.ValidarDoc(this, txtCPF_C);
+                if (resp == "")
+                {
+                    clsVariaveis.GstrSQL = "select top 1 * from A_Usuario where CPF = '" + txtCPF_C.Text + "' and Ativo = 1";
+                    DataTable dt = await Classes.clsBanco.ConsultaAsync(clsVariaveis.GstrSQL);
+                    if (dt.Rows.Count != 0)
+                    {
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            if (cboEmpresa_C.Text != item["EMPRESA"].ToString())
+                            {
+                                cboEmpresa_C.Text = item["EMPRESA"].ToString();
+
+                            }
+                            txtNome_C.Text = item["USUARIO"].ToString();
+                            cboStatus_C.Text = item["STATUS"].ToString();
+                            lblId_C.Text = item["ID"].ToString();
+                        }
+                        btnGravar_C.Text = "Alterar";
+                        btnExcluir_C.Enabled = true;
+                    }
+                    else
+                    {                        
+                        cboEmpresa_C.SelectedIndex = -1;
+                        txtNome_C.Text = "";
+                        cboStatus_C.SelectedIndex = -1;
+                        lblId_C.Text = "";
+                        btnGravar_C.Text = "Incluir";
+                        btnExcluir_C.Enabled = false;
+                    }
+                }
+            }            
+        }
+
+        private void cboEmpresa_C_SelectedIndexChanged(object sender, EventArgs e)
+        {            
+            PreencheGridCad(cboEmpresa_C.Text);
+        }
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -378,6 +379,7 @@ namespace Ponto.Classes
                     if (!Classes.clsFuncoes.IsCpf(strInf))
                     {
                         docvalido = "CPF inválido!";
+                        _t.Focus();
                     }
                 }
                 else
@@ -387,6 +389,7 @@ namespace Ponto.Classes
                     if (!Classes.clsFuncoes.IsCnpj(strInf))
                     {
                         docvalido = "CNPJ inválido!";
+                        _t.Focus();
                     }
                 }
             }

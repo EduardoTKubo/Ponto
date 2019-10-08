@@ -70,7 +70,20 @@ namespace Ponto.Classes
             }
         }
 
-
+        public static async Task<bool> ExcluirUsuario(string _id)
+        {
+            clsVariaveis.GstrResp = "";
+            try
+            {
+                clsVariaveis.GstrSQL = ("UPDATE A_USUARIO SET ATIVO = 0 WHERE ID = @id").Replace("@id", _id);
+                return await clsBanco.ExecuteQueryAsync(clsVariaveis.GstrSQL);
+            }
+            catch(Exception e)
+            {
+                clsVariaveis.GstrResp = e.Message;
+                return false;
+            }
+        }
 
     }
 }
