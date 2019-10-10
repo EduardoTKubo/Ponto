@@ -69,6 +69,8 @@
     <Compile Include="Classes\clsFuncoes.cs" />
     <Compile Include="Classes\clsPlanilha.cs" />
     <Compile Include="Classes\clsPonto.cs" />
+    <Compile Include="Classes\clsSP_Insert.cs" />
+    <Compile Include="Classes\clsSP_Update.cs" />
     <Compile Include="Classes\clsUsuario.cs" />
     <Compile Include="Classes\clsVariaveis.cs" />
     <Compile Include="Classes\Exceptions\DomainException.cs" />

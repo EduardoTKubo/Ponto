@@ -58,7 +58,7 @@ namespace Ponto.Classes
         [DllImport("user32.dll")]
         static extern int GetWindowThreadProcessId(int hWnd, out int lpdwProcessId);
 
-        public static async Task<bool> ExportarXLSAsync(DataGridView dgv)
+        public static bool ExportarXLS(DataGridView dgv)
         {
             Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
 

@@ -288,7 +288,7 @@
             // lblId_C
             // 
             this.lblId_C.AutoSize = true;
-            this.lblId_C.Location = new System.Drawing.Point(622, 134);
+            this.lblId_C.Location = new System.Drawing.Point(622, 143);
             this.lblId_C.Name = "lblId_C";
             this.lblId_C.Size = new System.Drawing.Size(13, 13);
             this.lblId_C.TabIndex = 16;
@@ -312,6 +312,7 @@
             this.btnGravar_C.TabIndex = 14;
             this.btnGravar_C.Text = "Gravar";
             this.btnGravar_C.UseVisualStyleBackColor = true;
+            this.btnGravar_C.Click += new System.EventHandler(this.btnGravar_C_Click);
             // 
             // label4
             // 
@@ -357,6 +358,7 @@
             this.dtgCad.RowHeadersVisible = false;
             this.dtgCad.Size = new System.Drawing.Size(240, 138);
             this.dtgCad.TabIndex = 7;
+            this.dtgCad.DoubleClick += new System.EventHandler(this.dtgCad_DoubleClick);
             // 
             // cboStatus_C
             // 
@@ -374,6 +376,7 @@
             this.txtNome_C.Name = "txtNome_C";
             this.txtNome_C.Size = new System.Drawing.Size(275, 20);
             this.txtNome_C.TabIndex = 4;
+            this.txtNome_C.Leave += new System.EventHandler(this.txtNome_C_Leave);
             // 
             // txtCPF_C
             // 

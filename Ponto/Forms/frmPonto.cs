@@ -10,11 +10,14 @@ namespace Ponto.Forms
 {
     public partial class frmPonto : Form
     {
+        clsUsuario Usuario = new clsUsuario();
+
+
         public frmPonto()
         {
             InitializeComponent();
 
-            this.Text = Application.ProductName.ToString() + " ".PadLeft(110) + Application.ProductVersion;
+            this.Text = Application.ProductName.ToString() + " ".PadLeft(120) + Application.ProductVersion;
 
             timer1.Interval = 1000;
             timer1.Enabled = true;
@@ -149,6 +152,52 @@ namespace Ponto.Forms
             }
         }
 
+        private async void PreencheTelaUsu( string _tipo ,string _cpf)
+        {
+            switch (_tipo)
+            {
+                case "ID":
+                    clsVariaveis.GstrSQL = "select top 1 * from A_Usuario where ID = " + _cpf;
+                    break;
+
+                case "DOC":
+                    clsVariaveis.GstrSQL = "select top 1 * from A_Usuario where CPF = '" + _cpf + "' and Ativo = 1";
+                    break;
+            }
+            
+
+            DataTable dt = await Classes.clsBanco.ConsultaAsync(clsVariaveis.GstrSQL);
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    if (cboEmpresa_C.Text != item["EMPRESA"].ToString())
+                    {
+                        cboEmpresa_C.Text = item["EMPRESA"].ToString();
+
+                    }
+                    if (txtCPF_C.Text != item["CPF"].ToString())
+                    {
+                        txtCPF_C.Text = item["CPF"].ToString();
+                    }
+                    txtNome_C.Text   = item["USUARIO"].ToString();
+                    cboStatus_C.Text = item["STATUS"].ToString();
+                    lblId_C.Text     = item["ID"].ToString();
+                }
+                btnGravar_C.Text = "Alterar";
+                btnExcluir_C.Enabled = true;
+            }
+            else
+            {
+                //cboEmpresa_C.SelectedIndex = -1;
+                txtNome_C.Text = "";
+                cboStatus_C.SelectedIndex = -1;
+                lblId_C.Text = "";
+                btnGravar_C.Text = "Incluir";
+                btnExcluir_C.Enabled = false;
+            }
+        }
+
         private async void PreencheGridCad(string _empresa)
         {
             dtgCad.DataSource = "";
@@ -211,6 +260,18 @@ namespace Ponto.Forms
             }
         }
 
+        private string VerificaInfoUsu()
+        {
+            string Resp = string.Empty;
+
+            if (cboEmpresa_C.Text.Trim() == "") Resp += "Informar a Empresa" + System.Environment.NewLine;
+            if (txtCPF_C.Text.Trim() == "") Resp += "Informar o CPF" + System.Environment.NewLine;
+            if (txtNome_C.Text.Trim() == "") Resp += "Informar o Nome" + System.Environment.NewLine;
+            if (cboStatus_C.Text.Trim() == "") Resp +="Informar o Status" + System.Environment.NewLine;
+
+            return Resp;
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             lblHora.Text = DateTime.Now.ToString("HH:mm:ss");
@@ -262,7 +323,7 @@ namespace Ponto.Forms
 
                         case 2:
                             LimpaTabPage3();
-                            PreencherTabPage3(); 
+                            PreencherTabPage3();
                             break;
                     }
                     break;
@@ -289,7 +350,7 @@ namespace Ponto.Forms
             PreencheGridHorarios(dtPicker1.Value.ToString("yyyy-MM-dd"), dtPicker2.Value.ToString("yyyy-MM-dd"), cboEmpresa.Text, cboFunc.Text);
         }
 
-        private async void btnXls_Click(object sender, EventArgs e)
+        private void btnXls_Click(object sender, EventArgs e)
         {
             if (dtgRel.RowCount != 0)
             {
@@ -299,13 +360,13 @@ namespace Ponto.Forms
                     btnXls.Enabled = false;
                     this.Cursor = Cursors.WaitCursor;
 
-                    bool booResp = await clsPlanilha.ExportarXLSAsync(dtgRel);
+                    bool booResp = clsPlanilha.ExportarXLS(dtgRel);
 
                     btnXls.Enabled = true;
                     this.Cursor = Cursors.Default;
                 }
             }
-                
+
 
             //if (dtgRel.RowCount != 0)
             //{
@@ -359,7 +420,7 @@ namespace Ponto.Forms
 
         private async void btnExcluir_C_Click(object sender, EventArgs e)
         {
-            if(lblId_C.Text != "")
+            if (lblId_C.Text != "")
             {
                 DialogResult dialogResult = MessageBox.Show("Deseja realmente excluir o usuário ?", "Excluir / Usuário", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
@@ -370,7 +431,6 @@ namespace Ponto.Forms
                         MessageBox.Show("Excluído com sucesso", "Excluir / Usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         string x = cboEmpresa_C.Text;
-                        
                         LimpaTabPage3();
                         cboEmpresa_C.Text = x;
                         PreencheGridCad(x);
@@ -383,47 +443,89 @@ namespace Ponto.Forms
             }
         }
 
-        private async void txtCPF_C_Leave(object sender, EventArgs e)
+        private void txtCPF_C_Leave(object sender, EventArgs e)
         {
-            if(txtCPF_C.Text != "")
+            if (txtCPF_C.Text != "")
             {
                 string resp = clsFuncoes.ValidarDoc(this, txtCPF_C);
                 if (resp == "")
                 {
-                    clsVariaveis.GstrSQL = "select top 1 * from A_Usuario where CPF = '" + txtCPF_C.Text + "' and Ativo = 1";
-                    DataTable dt = await Classes.clsBanco.ConsultaAsync(clsVariaveis.GstrSQL);
-                    if (dt.Rows.Count != 0)
-                    {
-                        foreach (DataRow item in dt.Rows)
-                        {
-                            if (cboEmpresa_C.Text != item["EMPRESA"].ToString())
-                            {
-                                cboEmpresa_C.Text = item["EMPRESA"].ToString();
-
-                            }
-                            txtNome_C.Text = item["USUARIO"].ToString();
-                            cboStatus_C.Text = item["STATUS"].ToString();
-                            lblId_C.Text = item["ID"].ToString();
-                        }
-                        btnGravar_C.Text = "Alterar";
-                        btnExcluir_C.Enabled = true;
-                    }
-                    else
-                    {                        
-                        cboEmpresa_C.SelectedIndex = -1;
-                        txtNome_C.Text = "";
-                        cboStatus_C.SelectedIndex = -1;
-                        lblId_C.Text = "";
-                        btnGravar_C.Text = "Incluir";
-                        btnExcluir_C.Enabled = false;
-                    }
+                    PreencheTelaUsu("DOC" ,txtCPF_C.Text);
                 }
-            }            
+            }
         }
 
         private void cboEmpresa_C_SelectedIndexChanged(object sender, EventArgs e)
-        {            
+        {
             PreencheGridCad(cboEmpresa_C.Text);
+        }
+
+        private async void btnGravar_C_Click(object sender, EventArgs e)
+        {
+            if (btnGravar_C.Text == "") return;
+
+            string x = VerificaInfoUsu();
+            if (x != "")
+            {
+                MessageBox.Show(x, btnGravar_C.Text + "Usuário", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            
+            Usuario.Usu_Empr = cboEmpresa_C.Text;
+            Usuario.Usu_CPF = txtCPF_C.Text;
+            Usuario.Usu_Usu = txtNome_C.Text;
+            Usuario.Usu_Sts = cboStatus_C.Text;
+            Usuario.Usu_Id = lblId_C.Text;
+
+            switch (btnGravar_C.Text)
+            {
+                case "Incluir":
+                    DataTable dti = await clsBanco.ExecuteQueryRetornoAsync(clsSP_Insert.ComandoInsertUsuario(Usuario));
+
+                    if (dti.Rows[0][0].ToString().Contains("SUCESSO"))
+                    {
+                        MessageBox.Show(dti.Rows[0][0].ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show(dti.Rows[0][0].ToString());
+                        return;
+                    }
+                    break;
+
+                case "Alterar":
+                    DataTable dta = await clsBanco.ExecuteQueryRetornoAsync(clsSP_Update.ComandoUpdateUsuario(Usuario));
+
+                    if (dta.Rows[0][0].ToString().Contains("SUCESSO"))
+                    {
+                        MessageBox.Show(dta.Rows[0][0].ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show(dta.Rows[0][0].ToString());
+                        return;
+                    }
+                    break;
+            }
+
+            string y = cboEmpresa_C.Text;
+            LimpaTabPage3();
+            cboEmpresa_C.Text = y;
+            PreencheGridCad(cboEmpresa_C.Text);
+        }
+
+        private void txtNome_C_Leave(object sender, EventArgs e)
+        {
+            if(txtNome_C.Text != "")
+            {
+                txtNome_C.Text = (txtNome_C.Text).ToUpper().Trim();
+            }
+        }
+
+        private void dtgCad_DoubleClick(object sender, EventArgs e)
+        {
+            int ID = Convert.ToInt32(dtgCad[0, dtgCad.CurrentRow.Index].Value);
+            PreencheTelaUsu( "ID" ,ID.ToString());
         }
     }
 }
