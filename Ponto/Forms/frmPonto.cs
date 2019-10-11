@@ -206,6 +206,8 @@ namespace Ponto.Forms
                 clsVariaveis.GstrSQL = "select ID ,Usuario from A_Usuario where Empresa = '" + _empresa + "' and Ativo = 1 order by Usuario";
                 dtgCad.DataSource = await Classes.clsBanco.ConsultaAsync(clsVariaveis.GstrSQL);
 
+                dtgCad.Columns[1].Width = 220;
+
                 foreach (DataGridViewColumn column in dtgCad.Columns)
                 {
                     if (column.DataPropertyName == "ID")
@@ -215,8 +217,6 @@ namespace Ponto.Forms
                     else
                     {
                         column.SortMode = DataGridViewColumnSortMode.NotSortable;
-                        // largura automatica da coluna
-                        column.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                     }
                 }
             }
@@ -244,9 +244,8 @@ namespace Ponto.Forms
                                 "' and '" + _dt2 + "' order by data";
                         DataTable dtFunc = await Classes.clsBanco.ConsultaAsync(clsVariaveis.GstrSQL);
 
-                        dtTot.Merge(dtFunc);
+                        dtTot.Merge(dtFunc);   // "add" dtFunc in dtTot
                     }
-
                     dtgRel.DataSource = dtTot;
 
                     break;
@@ -283,22 +282,7 @@ namespace Ponto.Forms
             {
                 this.WindowState = System.Windows.Forms.FormWindowState.Normal;
             }
-        }
-
-        private async void btnGravar_Click(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show("Tem certeza ?", "Gravar ?", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                btnGravar.Enabled = false;
-
-                if (await clsPonto.GravarPontoAsync(DateTime.Now.ToString("yyyy-MM-dd"), clsVariaveis.usuDoc))
-                {
-                    CarregarLista();
-                }
-                btnGravar.Enabled = true;
-            }
-        }
+        }                
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -526,6 +510,21 @@ namespace Ponto.Forms
         {
             int ID = Convert.ToInt32(dtgCad[0, dtgCad.CurrentRow.Index].Value);
             PreencheTelaUsu( "ID" ,ID.ToString());
+        }
+
+        private async void btnGravar_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Tem certeza ?", "Gravar ?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                btnGravar.Enabled = false;
+
+                if (await clsPonto.GravarPontoAsync(DateTime.Now.ToString("yyyy-MM-dd"), clsVariaveis.usuDoc))
+                {
+                    CarregarLista();
+                }
+                btnGravar.Enabled = true;
+            }
         }
     }
 }

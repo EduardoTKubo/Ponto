@@ -179,6 +179,7 @@
             this.btnGravar.Size = new System.Drawing.Size(62, 57);
             this.btnGravar.TabIndex = 5;
             this.btnGravar.UseVisualStyleBackColor = true;
+            this.btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
             // 
             // pictureBox1
             // 
@@ -288,7 +289,7 @@
             // lblId_C
             // 
             this.lblId_C.AutoSize = true;
-            this.lblId_C.Location = new System.Drawing.Point(622, 143);
+            this.lblId_C.Location = new System.Drawing.Point(618, 143);
             this.lblId_C.Name = "lblId_C";
             this.lblId_C.Size = new System.Drawing.Size(13, 13);
             this.lblId_C.TabIndex = 16;
@@ -352,7 +353,6 @@
             // 
             // dtgCad
             // 
-            this.dtgCad.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgCad.Location = new System.Drawing.Point(376, 18);
             this.dtgCad.Name = "dtgCad";
             this.dtgCad.RowHeadersVisible = false;
