@@ -404,8 +404,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(647, 215);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmPonto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -36,15 +36,11 @@ namespace Ponto
                 else
                 {
                     string doc = txtCPF.Text;
-                    string acesso = await clsUsuario.AcessoUsuarioAsync(doc);
+                    clsVariaveis.usuStatus = await clsUsuario.AcessoUsuarioAsync(doc);
 
-                    switch (acesso)
+                    switch (clsVariaveis.usuStatus)
                     {
                         case "ADMINISTRADOR":
-                            Classes.clsFuncoes.OpenForm(new Forms.frmPonto(), this, "1");
-                            this.Close();
-                            break;
-
                         case "USUARIO":
                             Classes.clsFuncoes.OpenForm(new Forms.frmPonto(), this, "1");
                             this.Close();

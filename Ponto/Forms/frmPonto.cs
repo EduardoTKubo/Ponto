@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ponto.Classes;
 
@@ -33,6 +32,18 @@ namespace Ponto.Forms
 
             tabPage1.Select();
 
+            switch (clsVariaveis.usuStatus)
+            {
+                case "USUARIO":
+                    this.Height = 235;
+                    this.tabControl1.Top = -20;
+                    break;
+
+                default:
+                   
+                    break;
+
+            }
         }
 
         private async void CarregarLista()
@@ -264,9 +275,9 @@ namespace Ponto.Forms
             string Resp = string.Empty;
 
             if (cboEmpresa_C.Text.Trim() == "") Resp += "Informar a Empresa" + System.Environment.NewLine;
-            if (txtCPF_C.Text.Trim() == "") Resp += "Informar o CPF" + System.Environment.NewLine;
-            if (txtNome_C.Text.Trim() == "") Resp += "Informar o Nome" + System.Environment.NewLine;
-            if (cboStatus_C.Text.Trim() == "") Resp +="Informar o Status" + System.Environment.NewLine;
+            if (txtCPF_C.Text.Trim()     == "") Resp += "Informar o CPF"     + System.Environment.NewLine;
+            if (txtNome_C.Text.Trim()    == "") Resp += "Informar o Nome"    + System.Environment.NewLine;
+            if (cboStatus_C.Text.Trim()  == "") Resp += "Informar o Status"  + System.Environment.NewLine;
 
             return Resp;
         }
@@ -350,46 +361,6 @@ namespace Ponto.Forms
                     this.Cursor = Cursors.Default;
                 }
             }
-
-
-            //if (dtgRel.RowCount != 0)
-            //{
-            //    // definindo nome da planilha
-            //    string strCaminho = Application.StartupPath + @"\arquivo\" + DateTime.Now.ToString("yyyyMMdd_HHmm") + "_RelVisitas.xlsx";
-
-            //    DataTable dt = new DataTable();
-
-            //    // create columns
-            //    foreach (DataGridViewColumn col in dtgRel.Columns)
-            //    {
-            //        if (col.ValueType == null)
-            //        {
-            //            dt.Columns.Add(col.Name, typeof(string));
-            //        }
-            //        else
-            //        {
-            //            dt.Columns.Add(col.Name, col.ValueType);
-            //            dt.Columns[col.Name].Caption = col.HeaderText;
-            //        }
-            //    }
-            //    // insert row data
-            //    foreach (DataGridViewRow row in dtgRel.Rows)
-            //    {
-            //        DataRow drNewRow = dt.NewRow();
-            //        foreach (DataColumn col in dt.Columns)
-            //        {
-            //            drNewRow[col.ColumnName] = row.Cells[col.ColumnName].Value;
-            //        }
-            //        dt.Rows.Add(drNewRow);
-            //    }
-
-            //    // cria a planilha
-            //    if (await clsPlanilha.GeraSpireXLSAsync(dt, strCaminho))
-            //    {
-            //        // abre a planilha
-            //        clsPlanilha.OpenXLS(strCaminho);
-            //    }
-            //}
         }
 
         private void txtCPF_C_KeyPress(object sender, KeyPressEventArgs e)
@@ -526,6 +497,7 @@ namespace Ponto.Forms
                 btnGravar.Enabled = true;
             }
         }
+
     }
 }
 
